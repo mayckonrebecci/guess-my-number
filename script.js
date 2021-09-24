@@ -14,7 +14,7 @@ number = Math.floor(Math.random() * 20) + 1;
 
 // ------------------------------
 // ! ARRUMAR
-// ------------------------------
+// ------------------------------   
 if (highScore.innerHTML = 0) {
     btnReset.setAttribute('disabled');
 }
