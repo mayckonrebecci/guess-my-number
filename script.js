@@ -13,6 +13,7 @@ let highScore = document.querySelector(".highscore");
 const randomNum = Math.floor(Math.random() * 20) + 1;
 number = randomNum;
 highScore.innerHTML = 0;
+score.innerHTML = 20;
 
 // ------------------------------
 // * BUTTON FUNCTIONS
@@ -26,7 +27,7 @@ const btnResetDisabled = () => {
 btnResetDisabled();
 
 const btnResetEnabled = () => {
-    if (Number(highScore.innerHTML) > 0) {
+    if (Number(highScore.innerHTML) > 0 || Number(score.innerHTML) < 20) {
         btnReset.disabled = false;
         btnReset.style.backgroundColor = "";
     }
@@ -58,12 +59,11 @@ const btnAgainEnabled = () => {
 // ------------------------------   
 let clickCheck = () => {
     
-    if(Number(inputGuess.value) === number) {
+    if (Number(inputGuess.value) === number) {
         // let number = document.querySelector(".number");
         // number.innerHTML = randomNum;
 
         message.innerText = "🎉 Correct Number!";
-
         bodyBG.style.backgroundColor = "#60b347";
         
         
@@ -76,24 +76,43 @@ let clickCheck = () => {
         btnResetEnabled();
 
     }
+    else if (Number(score.innerHTML) <= 1) {
+
+        score.innerHTML = "0";
+        message.innerHTML = "💀 Game Over!";
+        bodyBG.style.backgroundColor = "#c32c2c";
+
+        btnCheckDisabled();
+        btnAgainEnabled();
+    }
     else {
         if (Number(inputGuess.value) > number && Number(inputGuess.value) < 20) {
             message.innerText = "📈 Too High!";
 
             score.innerHTML--;
+
+            btnResetEnabled();
         }
         if (Number(inputGuess.value) < number && Number(inputGuess.value) > 0) {
             message.innerText = "📉 Too Low!";
 
             score.innerHTML--;
+            btnResetEnabled();
         }
-        if (Number(inputGuess.value) > 20 || Number(inputGuess.value) < 0) {
+        if (Number(inputGuess.value) > 20 || Number(inputGuess.value) < 1) {
             message.innerText = "❌ Insert a number between 1 and 20!";
         }
     }
 
     inputGuess.value = 1;
 }
+
+inputGuess.addEventListener("keypress", (event) => {
+    if(event.keyCode === 13) {
+        event.preventDefault();
+        clickCheck();
+    }
+})
 
 let clickAgain = () => {
     const randomNum = Math.floor(Math.random() * 20) + 1;
@@ -103,6 +122,7 @@ let clickAgain = () => {
     bodyBG.style.backgroundColor = "";    
     score.innerHTML = 20;
     
+    btnResetDisabled();
     btnCheckEnabled();
     btnAgainDisabled();
 }
