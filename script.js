@@ -10,10 +10,19 @@ let bodyBG = document.querySelector("body");
 let score = document.querySelector(".score");
 let highScore = document.querySelector(".highscore");
 
-const randomNum = Math.floor(Math.random() * 20) + 1;
-number = randomNum;
+let randomNum = Math.floor(Math.random() * 20) + 1;
+number.innerHTML = "?";
 highScore.innerHTML = 0;
 score.innerHTML = 20;
+
+let btnCheckOnLoad = () =>{
+    if (Number(inputGuess.value) > 20 || Number(inputGuess.value) < 1) {
+        btnCheckDisabled();
+    }
+    else {
+        btnCheckEnabled();
+    }
+}
 
 // ------------------------------
 // * BUTTON FUNCTIONS
@@ -59,13 +68,12 @@ const btnAgainEnabled = () => {
 // ------------------------------   
 let clickCheck = () => {
     
-    if (Number(inputGuess.value) === number) {
-        // let number = document.querySelector(".number");
-        // number.innerHTML = randomNum;
-
+    if (Number(inputGuess.value) === randomNum) {
+        
         message.innerText = "🎉 Correct Number!";
         bodyBG.style.backgroundColor = "#60b347";
         
+        number.innerHTML = randomNum;
         
         if (score.innerHTML > highScore.innerHTML) {
             highScore.innerHTML = score.innerHTML;            
@@ -83,24 +91,24 @@ let clickCheck = () => {
         bodyBG.style.backgroundColor = "#c32c2c";
 
         btnCheckDisabled();
-        btnAgainEnabled();
+        if (Number(highScore.innerHTML) > 0)
+        {
+            btnAgainEnabled();
+        }
     }
     else {
-        if (Number(inputGuess.value) > number && Number(inputGuess.value) < 20) {
+        if (Number(inputGuess.value) > randomNum && Number(inputGuess.value) <= 20) {
             message.innerText = "📈 Too High!";
 
             score.innerHTML--;
 
             btnResetEnabled();
         }
-        if (Number(inputGuess.value) < number && Number(inputGuess.value) > 0) {
+        if (Number(inputGuess.value) < randomNum && Number(inputGuess.value) > 0) {
             message.innerText = "📉 Too Low!";
 
             score.innerHTML--;
             btnResetEnabled();
-        }
-        if (Number(inputGuess.value) > 20 || Number(inputGuess.value) < 1) {
-            message.innerText = "❌ Insert a number between 1 and 20!";
         }
     }
 
@@ -108,35 +116,41 @@ let clickCheck = () => {
 }
 
 inputGuess.addEventListener("keypress", (event) => {
-    if(event.keyCode === 13) {
+    if(event.keyCode === 13 && Number(inputGuess.value) >= 1 && Number(inputGuess.value) <= 20) {
         event.preventDefault();
         clickCheck();
     }
 })
 
 let clickAgain = () => {
-    const randomNum = Math.floor(Math.random() * 20) + 1;
-
-    number = randomNum;
+    randomNum = Math.floor(Math.random() * 20) + 1;
+    number.innerText = "?";
+    
+    
     message.innerText = "Start guessing...";    
     bodyBG.style.backgroundColor = "";    
     score.innerHTML = 20;
     
+    
     btnResetDisabled();
     btnCheckEnabled();
     btnAgainDisabled();
+    btnCheckOnLoad();
 }
 
 let clickReset = () => {
-    const randomNum = Math.floor(Math.random() * 20) + 1;  
-
+    randomNum = Math.floor(Math.random() * 20) + 1;  
+    number.innerHTML = "?";
+    
+    
     highScore.innerHTML = 0;
-    number = randomNum;
     message.innerText = "Start guessing...";
     bodyBG.style.backgroundColor = "";    
     score.innerHTML = 20;
     
+
     btnCheckEnabled();
     btnResetDisabled();
     btnAgainDisabled();
+    btnCheckOnLoad();
 }
