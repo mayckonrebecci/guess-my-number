@@ -16,7 +16,10 @@ highScore.innerHTML = 0;
 score.innerHTML = 20;
 
 let btnCheckOnLoad = () =>{
-    if (Number(inputGuess.value) > 20 || Number(inputGuess.value) < 1) {
+    if (Number(inputGuess.value) > 20
+    || Number(inputGuess.value) < 1
+    || message.innerText === "🎉 Correct Number!"
+    || message.innerHTML === "💀 Game Over!") {
         btnCheckDisabled();
     }
     else {
@@ -116,7 +119,11 @@ let clickCheck = () => {
 }
 
 inputGuess.addEventListener("keypress", (event) => {
-    if(event.keyCode === 13 && Number(inputGuess.value) >= 1 && Number(inputGuess.value) <= 20) {
+    if(event.keyCode === 13 
+        && Number(inputGuess.value) >= 1 
+        && Number(inputGuess.value) <= 20
+        && message.innerText !== "🎉 Correct Number!"
+        && message.innerHTML !== "💀 Game Over!") {
         event.preventDefault();
         clickCheck();
     }
