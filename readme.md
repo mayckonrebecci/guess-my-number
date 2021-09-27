@@ -1,5 +1,5 @@
 # guess-my-number
-<a href="https://mayckonrebecci.github.io/random-dice/"><strong>GUESS MY NUMBER PAGE</strong></a>
+<a href="https://mayckonrebecci.github.io/guess-my-number/"><strong>GUESS MY NUMBER PAGE</strong></a>
 
 Guess my Number made with HTML, CSS and Javascript
 
