@@ -66,6 +66,32 @@ const btnAgainEnabled = () => {
     btnAgain.style.backgroundColor = "";
 }
 
+
+// ------------------------------
+// * DRY
+// ------------------------------  
+const highOrLow = (event) => {
+    message.innerText = event;
+    score.innerHTML--;
+    btnResetEnabled();
+}
+
+const AgainAndResetBtn = () => {
+    randomNum = Math.floor(Math.random() * 20) + 1;  
+    number.innerHTML = "?";
+    
+    
+    message.innerText = "Start guessing...";
+    bodyBG.style.backgroundColor = "";    
+    score.innerHTML = 20;
+    
+
+    btnResetDisabled();
+    btnCheckEnabled();
+    btnAgainDisabled();
+    btnCheckOnLoad();
+}
+
 // ------------------------------
 // * GAME LOGIC
 // ------------------------------   
@@ -101,17 +127,10 @@ let clickCheck = () => {
     }
     else {
         if (Number(inputGuess.value) > randomNum && Number(inputGuess.value) <= 20) {
-            message.innerText = "📈 Too High!";
-
-            score.innerHTML--;
-
-            btnResetEnabled();
+            highOrLow("📈 Too High!");
         }
         if (Number(inputGuess.value) < randomNum && Number(inputGuess.value) > 0) {
-            message.innerText = "📉 Too Low!";
-
-            score.innerHTML--;
-            btnResetEnabled();
+            highOrLow("📉 Too Low!");
         }
     }
 
@@ -129,35 +148,13 @@ inputGuess.addEventListener("keypress", (event) => {
     }
 })
 
+
 let clickAgain = () => {
-    randomNum = Math.floor(Math.random() * 20) + 1;
-    number.innerText = "?";
-    
-    
-    message.innerText = "Start guessing...";    
-    bodyBG.style.backgroundColor = "";    
-    score.innerHTML = 20;
-    
-    
-    btnResetDisabled();
-    btnCheckEnabled();
-    btnAgainDisabled();
-    btnCheckOnLoad();
+    AgainAndResetBtn();
 }
 
 let clickReset = () => {
-    randomNum = Math.floor(Math.random() * 20) + 1;  
-    number.innerHTML = "?";
-    
-    
     highScore.innerHTML = 0;
-    message.innerText = "Start guessing...";
-    bodyBG.style.backgroundColor = "";    
-    score.innerHTML = 20;
-    
 
-    btnCheckEnabled();
-    btnResetDisabled();
-    btnAgainDisabled();
-    btnCheckOnLoad();
+    AgainAndResetBtn();
 }
