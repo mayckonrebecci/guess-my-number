@@ -8,3 +8,4 @@ Adivinhe meu Número feito com HTML, CSS e Javascript
 <img src="img/screenshot1.png">
 <img src="img/screenshot2.png">
 <img src="img/screenshot3.png">
+<img src="img/screenshot4.png">
